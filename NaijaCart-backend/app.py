@@ -11,6 +11,7 @@ from auth import (
 from payments import initialize_payment, verify_payment
 from email_verify import verify_email
 from order_status import get_lifecycle_status, get_status_label
+from seed import PRODUCTS
 
 app = Flask(__name__)
 init_db()
@@ -51,6 +52,21 @@ def add_cors_headers(response):
 
 
 os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
+
+
+def seed_products_if_empty():
+    conn = get_db()
+    product_count = conn.execute("SELECT COUNT(*) FROM products").fetchone()[0]
+    if product_count == 0:
+        conn.executemany(
+            "INSERT INTO products (name, description, price, category, image_url, stock) VALUES (?, ?, ?, ?, ?, ?)",
+            PRODUCTS,
+        )
+        conn.commit()
+    conn.close()
+
+
+seed_products_if_empty()
 
 
 def enrich_order(order):
