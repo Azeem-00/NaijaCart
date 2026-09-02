@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: naijacart-api
+    runtime: python
+    rootDir: NaijaCart-backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: NAIJACART_ALLOWED_ORIGINS
+        sync: false
+      - key: NAIJACART_ADMIN_EMAIL
+        sync: false
+      - key: NAIJACART_ADMIN_PASSWORD
+        sync: false
+      - key: PAYSTACK_SECRET_KEY
+        sync: false
