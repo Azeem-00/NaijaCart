@@ -31,6 +31,11 @@ allowed_origins = sorted(set(filter(None, allowed_origins)))
 CORS(app, origins=allowed_origins)
 
 
+@app.get("/")
+def health_check():
+    return jsonify({"status": "ok", "service": "NaijaCart API"})
+
+
 @app.after_request
 def add_cors_headers(response):
     origin = request.headers.get("Origin")

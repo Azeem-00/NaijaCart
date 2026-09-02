@@ -1,7 +1,9 @@
 // js/api.js -- the one place that talks to the NaijaCart backend.
 const API_HOST = window.location.hostname || "127.0.0.1";
-const BASE =
-  import.meta.env?.VITE_API_BASE_URL || `http://${API_HOST}:5000/api`;
+const isLocal = ["localhost", "127.0.0.1"].includes(API_HOST);
+const BASE = isLocal
+  ? `http://${API_HOST}:5000/api`
+  : "https://naijacart-cb64.onrender.com/api";
 const PAYSTACK_PUBLIC_KEY = "pk_test_9adeaa255868f67d25dc1ec46c9f97d14971d42b";
 
 function authHeaders() {
