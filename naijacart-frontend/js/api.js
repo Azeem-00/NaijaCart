@@ -3,7 +3,7 @@ const API_HOST = window.location.hostname || "127.0.0.1";
 const isLocal = ["localhost", "127.0.0.1"].includes(API_HOST);
 const BASE = isLocal
   ? `http://${API_HOST}:5000/api`
-  : "https://naijacart-cb64.onrender.com/api";
+  : `${window.location.origin}/api`;
 const PAYSTACK_PUBLIC_KEY = "pk_test_9adeaa255868f67d25dc1ec46c9f97d14971d42b";
 
 function authHeaders() {

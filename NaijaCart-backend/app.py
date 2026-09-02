@@ -13,7 +13,10 @@ from email_verify import verify_email
 from order_status import get_lifecycle_status, get_status_label
 from seed import PRODUCTS
 
-app = Flask(__name__)
+FRONTEND_FOLDER = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..", "naijacart-frontend")
+)
+app = Flask(__name__, static_folder=FRONTEND_FOLDER, static_url_path="")
 init_db()
 app.config["UPLOAD_FOLDER"] = os.path.join(os.path.dirname(__file__), "uploads")
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024
@@ -26,16 +29,24 @@ local_origins = [
     for host in ("localhost", "127.0.0.1")
     for port in (*range(5500, 5511), *range(8000, 8011), 3000, 4173, 5173, 8080)
 ]
-allowed_origins = local_origins + (
+configured_origin_list = (
     [origin.strip() for origin in configured_origins.split(",") if origin.strip()]
     if configured_origins
     else []
 )
+allowed_origins = local_origins + configured_origin_list + [
+    "https://naijacart-ecommerce.netlify.app"
+]
 allowed_origins = sorted(set(filter(None, allowed_origins)))
 CORS(app, origins=allowed_origins)
 
 
 @app.get("/")
+def home():
+    return app.send_static_file("index.html")
+
+
+@app.get("/health")
 def health_check():
     return jsonify({"status": "ok", "service": "NaijaCart API"})
 
@@ -61,6 +72,18 @@ def seed_products_if_empty():
         conn.executemany(
             "INSERT INTO products (name, description, price, category, image_url, stock) VALUES (?, ?, ?, ?, ?, ?)",
             PRODUCTS,
+        )
+        conn.commit()
+
+    admin_exists = conn.execute(
+        "SELECT 1 FROM users WHERE is_admin = 1 LIMIT 1"
+    ).fetchone()
+    admin_email = os.environ.get("NAIJACART_ADMIN_EMAIL", "").strip().lower()
+    admin_password = os.environ.get("NAIJACART_ADMIN_PASSWORD", "")
+    if not admin_exists and admin_email and admin_password:
+        conn.execute(
+            "INSERT INTO users (first_name, last_name, email, phone, password_hash, is_admin) VALUES (?, ?, ?, ?, ?, 1)",
+            ("Store", "Admin", admin_email, "", hash_password(admin_password)),
         )
         conn.commit()
     conn.close()
@@ -293,7 +316,9 @@ def register():
         )
     user_id = cur.lastrowid
     conn.commit()
-    conn.close()
+    created_at = conn.execute(
+        "SELECT created_at FROM users WHERE id = ?", (user_id,)
+    ).fetchone()["created_at"]
     token = create_token(user_id)
     full_name = f"{first_name} {last_name}"
     registered_user = {
@@ -305,7 +330,7 @@ def register():
         "phone": phone,
         "address": address,
         "is_admin": False,
-        "created_at": (conn.execute("SELECT created_at FROM users WHERE id = ?", (user_id,)).fetchone() or {})["created_at"],
+        "created_at": created_at,
     }
     conn.close()
     return jsonify({"token": token, "user": registered_user}), 201
