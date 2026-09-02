@@ -1875,9 +1875,21 @@ a:hover {
 @media (max-width: 640px) {
   .admin-header,
   .admin-toolbar,
-  .admin-product-row {
+  .admin-product-row,
+  .admin-order-header,
+  .admin-user-row {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .admin-user-meta {
+    text-align: left;
+  }
+
+  .admin-order-header span,
+  .admin-user-row span,
+  .admin-order-customer p {
+    overflow-wrap: anywhere;
   }
 
   .admin-form-grid {
@@ -2284,6 +2296,15 @@ body {
   font-weight: 700;
   white-space: nowrap;
   transition: all var(--transition-fast);
+}
+
+.admin-link svg {
+  display: none;
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
 }
 
 .admin-link[hidden] {
@@ -3435,6 +3456,17 @@ dialog[open]::backdrop {
     grid-template-columns: minmax(0, 1fr) auto;
   }
 
+  .account-actions {
+    align-items: center;
+    gap: 0.375rem;
+    transform: translate(3px, -3px);
+  }
+
+  .header-actions {
+    gap: 0.375rem;
+    transform: translateX(11px);
+  }
+
   .logo span {
     display: inline;
   }
@@ -3465,9 +3497,28 @@ dialog[open]::backdrop {
   }
 
   .admin-link {
-    width: auto;
-    padding-inline: 0.45rem;
-    font-size: 0.68rem;
+    align-self: flex-end;
+    width: 40px;
+    height: 40px;
+    min-height: 40px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .admin-link svg {
+    display: block;
+  }
+
+  .admin-link-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
   .profile-fields {
@@ -3488,6 +3539,16 @@ dialog[open]::backdrop {
 
   .cart-btn > span:not(#cart-count) {
     display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .account-actions {
+    gap: 0.375rem;
+  }
+
+  .logo {
+    font-size: 0.95rem;
   }
 }
 
