@@ -1,4 +1,5 @@
-# seed.py
+import os
+
 from database import get_db, init_db
 from auth import hash_password
 
@@ -29,12 +30,14 @@ PRODUCTS = [
     ("Sumec Firman Generator 2.5KVA", "Portable petrol generator, reliable backup power", 185000, "Electronics", "assets/img/sumec.jpeg", 18),
 ]
 
-ADMINS = [
-    ("Store", "Admin", "admin@naijacart.ng", "08012345678", "Admin000"),
-]
-
-
 def seed():
+    admin_email = os.getenv("NAIJACART_ADMIN_EMAIL", "").strip().lower()
+    admin_password = os.getenv("NAIJACART_ADMIN_PASSWORD", "")
+    if not admin_email or not admin_password:
+        raise SystemExit(
+            "Set NAIJACART_ADMIN_EMAIL and NAIJACART_ADMIN_PASSWORD before running seed.py."
+        )
+
     init_db()
     conn = get_db()
 
@@ -45,12 +48,10 @@ def seed():
     conn.execute("DELETE FROM products")
     conn.execute("DELETE FROM sqlite_sequence WHERE name IN ('users', 'products', 'orders', 'order_items', 'reviews')")
 
-    for first_name, last_name, email, phone, password in ADMINS:
-        email = email.lower()
-        conn.execute(
-            "INSERT INTO users (first_name, last_name, email, phone, password_hash, is_admin) VALUES (?, ?, ?, ?, ?, 1)",
-            (first_name, last_name, email, phone, hash_password(password)),
-        )
+    conn.execute(
+        "INSERT INTO users (first_name, last_name, email, phone, password_hash, is_admin) VALUES (?, ?, ?, ?, ?, 1)",
+        ("Store", "Admin", admin_email, "", hash_password(admin_password)),
+    )
 
     for p in PRODUCTS:
         conn.execute(

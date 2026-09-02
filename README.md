@@ -52,11 +52,13 @@ cd NaijaCart-backend
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 pip install -r requirements.txt
+$env:NAIJACART_ADMIN_EMAIL = "your-admin@example.com"
+$env:NAIJACART_ADMIN_PASSWORD = "choose-a-strong-password"
 python seed.py
 python app.py
 ```
 
-The API runs at `http://127.0.0.1:5000`. `seed.py` creates `NaijaCart-backend/naijacart.db` if it does not exist, initializes the schema, clears the seeded tables, and inserts the sample catalogue and admin account.
+The API runs at `http://127.0.0.1:5000`. `seed.py` creates `NaijaCart-backend/naijacart.db` if it does not exist, initializes the schema, clears the seeded tables, and inserts the sample catalogue and the admin account configured by those environment variables. It requires both variables and does not contain a default admin password.
 
 ### Frontend
 
@@ -71,12 +73,7 @@ Visit `http://127.0.0.1:5500` in a browser. The backend allows local frontend or
 
 ### Admin account
 
-The seed account is:
-
-```text
-Email:    admin@naijacart.ng
-Password: Admin000
-```
+The admin credentials are the values you set in `NAIJACART_ADMIN_EMAIL` and `NAIJACART_ADMIN_PASSWORD`. Never publish those values in the README or commit them to Git.
 
 ## Payments
 
