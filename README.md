@@ -52,8 +52,6 @@ cd NaijaCart-backend
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-$env:NAIJACART_ADMIN_EMAIL = "your-admin@example.com"
-$env:NAIJACART_ADMIN_PASSWORD = "choose-a-strong-password"
 python seed.py
 python app.py
 ```
