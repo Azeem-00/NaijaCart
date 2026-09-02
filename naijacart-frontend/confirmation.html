@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Confirmation - NaijaCart</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- Promo Bar -->
+    <div class="promo-bar">
+      <div class="container">
+        <p>Thank you for shopping with NaijaCart</p>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="index.html" aria-label="NaijaCart home">
+          <svg
+            class="brand-cart"
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            focusable="false"
+          >
+            <path
+              d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 1.9-1.4L21 8H6"
+            />
+            <circle cx="10" cy="20" r="1.2" />
+            <circle cx="18" cy="20" r="1.2" />
+          </svg>
+          <span>NaijaCart</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="confirmation-page">
+      <div class="container">
+        <div class="confirmation-content">
+          <div id="confirmation-message"></div>
+          <div class="confirmation-actions">
+            <a href="index.html" class="btn btn-primary">Continue Shopping</a>
+            <a id="view-orders-link" href="profile.html" class="btn btn-outline"
+              >View Your Orders</a
+            >
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="js/confirmation.js"></script>
+  </body>
+</html>

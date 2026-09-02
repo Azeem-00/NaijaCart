@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Cart - NaijaCart</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- Promo Bar -->
+    <div class="promo-bar">
+      <div class="container">
+        <p>
+          Free delivery on orders over ₦25,000 • Pay on delivery available
+          nation-wide
+        </p>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="index.html" aria-label="NaijaCart home">
+          <svg
+            class="brand-cart"
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            focusable="false"
+          >
+            <path
+              d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 1.9-1.4L21 8H6"
+            />
+            <circle cx="10" cy="20" r="1.2" />
+            <circle cx="18" cy="20" r="1.2" />
+          </svg>
+          <span>NaijaCart</span>
+        </a>
+        <nav class="header-actions">
+          <div class="account-actions">
+            <div class="account-menu-wrap">
+              <button
+                id="account-btn"
+                class="icon-btn"
+                type="button"
+                aria-expanded="false"
+                aria-haspopup="menu"
+              >
+                Sign in
+              </button>
+              <div id="account-menu" class="account-menu" role="menu" hidden>
+                <button
+                  type="button"
+                  class="account-menu-item"
+                  data-action="profile"
+                  role="menuitem"
+                >
+                  Edit profile
+                </button>
+                <button
+                  type="button"
+                  class="account-menu-item danger"
+                  data-action="signout"
+                  role="menuitem"
+                >
+                  Sign out
+                </button>
+              </div>
+            </div>
+            <a id="admin-link" class="admin-link" href="admin.html" hidden
+              >Admin dashboard</a
+            >
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main class="cart-page">
+      <div class="container">
+        <div class="cart-page-header">
+          <h1>Shopping Cart</h1>
+          <p class="cart-count-text">
+            <span id="cart-items-count">0</span> items in your cart
+          </p>
+        </div>
+
+        <div class="cart-layout">
+          <!-- Cart Items Section -->
+          <div class="cart-items-section">
+            <div id="cart-items-container"></div>
+            <div class="cart-actions-bottom">
+              <a href="index.html" class="btn btn-outline"
+                >← Continue Shopping</a
+              >
+            </div>
+          </div>
+
+          <!-- Order Summary Section -->
+          <div class="cart-summary-section">
+            <div class="order-summary-card">
+              <h2>Order Summary</h2>
+              <div class="summary-details">
+                <div class="summary-row">
+                  <span>Subtotal</span>
+                  <span id="summary-subtotal">₦0</span>
+                </div>
+                <div class="summary-row">
+                  <span>Delivery Fee</span>
+                  <span id="summary-delivery">₦0</span>
+                </div>
+                <div class="summary-row total">
+                  <span>Total</span>
+                  <span id="summary-total">₦0</span>
+                </div>
+              </div>
+              <div id="free-delivery-msg" class="free-delivery-msg" hidden>
+                ✓ Free delivery on orders over ₦25,000
+              </div>
+              <button id="checkout-btn" class="btn btn-primary btn-block">
+                Proceed to Checkout
+              </button>
+              <div class="secure-checkout">
+                <span>🔒 Secure checkout powered by Paystack</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <h3>NaijaCart</h3>
+          <p>Nigeria's modern marketplace for everyday good things.</p>
+        </div>
+        <p class="footer-meta">
+          Quality goods. Honest prices. Delivered with care.
+        </p>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          <p>
+            &copy; 2026 NaijaCart <span aria-hidden="true">&middot;</span> Made
+            for modern Nigerian living.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Auth dialog -->
+    <dialog id="auth-dialog" class="dialog auth-dialog">
+      <div class="auth-brand" aria-hidden="true">
+        <svg class="auth-brand-icon" viewBox="0 0 24 24" focusable="false">
+          <path
+            d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 1.9-1.4L21 8H6"
+          />
+          <circle cx="10" cy="20" r="1.2" />
+          <circle cx="18" cy="20" r="1.2" />
+        </svg>
+        <span>NaijaCart</span>
+      </div>
+      <div class="dialog-head">
+        <h2 id="auth-title">Sign in</h2>
+        <button
+          type="button"
+          class="dialog-close"
+          data-close
+          aria-label="Close dialog"
+        >
+          &times;
+        </button>
+      </div>
+      <form
+        id="auth-form"
+        class="auth-form"
+        novalidate
+        onsubmit="return false;"
+      >
+        <div id="auth-name-fields" class="field" hidden>
+          <label for="auth-first-name">First name</label>
+          <input
+            id="auth-first-name"
+            name="first_name"
+            type="text"
+            autocomplete="given-name"
+            placeholder="e.g. Amara"
+            required
+          />
+        </div>
+        <div id="auth-last-name-field" class="field" hidden>
+          <label for="auth-last-name">Last name</label>
+          <input
+            id="auth-last-name"
+            name="last_name"
+            type="text"
+            autocomplete="family-name"
+            placeholder="e.g. Okafor"
+            required
+          />
+        </div>
+        <div id="auth-phone-field" class="field" hidden>
+          <label for="auth-phone">Phone number</label>
+          <input
+            id="auth-phone"
+            name="phone"
+            type="tel"
+            autocomplete="tel"
+            placeholder="e.g. 08012345678"
+            required
+          />
+        </div>
+        <div class="field">
+          <label for="auth-email">Email</label>
+          <input
+            id="auth-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            placeholder="e.g. amara@example.com"
+            required
+          />
+        </div>
+        <div class="field password-field">
+          <label for="auth-password">Password</label>
+          <div class="password-input-wrapper">
+            <input
+              id="auth-password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="At least 6 characters"
+              required
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              aria-label="Show password"
+              aria-pressed="false"
+            >
+              Show
+            </button>
+          </div>
+        </div>
+        <div id="auth-address-field" class="field" hidden>
+          <label for="auth-address">Address</label>
+          <input
+            id="auth-address"
+            name="address"
+            type="text"
+            autocomplete="street-address"
+            placeholder="e.g. 12 Adeola Street, Lagos"
+            required
+          />
+        </div>
+        <p
+          id="auth-error"
+          class="form-error"
+          role="alert"
+          tabindex="-1"
+          hidden
+        ></p>
+        <button
+          type="submit"
+          class="btn btn-primary btn-block"
+          id="auth-submit"
+        >
+          Sign in
+        </button>
+        <button type="button" class="btn-link" id="auth-toggle">
+          New here? Create an account
+        </button>
+      </form>
+    </dialog>
+
+    <script type="module" src="js/cart-page.js?v=20260902-1"></script>
+  </body>
+</html>

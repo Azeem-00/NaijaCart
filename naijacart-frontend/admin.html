@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NaijaCart Admin</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body class="admin-page">
+    <main class="admin-shell">
+      <header class="admin-header">
+        <div>
+          <p class="eyebrow">NAIJACART ADMIN</p>
+          <h1>Manage products</h1>
+          <p>
+            Add products to the live catalogue or remove products from the
+            database.
+          </p>
+        </div>
+        <a class="btn btn-outline" href="index.html">View storefront</a>
+      </header>
+
+      <section id="dashboard" class="admin-dashboard" hidden>
+        <div class="admin-toolbar">
+          <div>
+            <p class="eyebrow">CONTROL CENTRE</p>
+            <h2>Store operations</h2>
+          </div>
+          <button id="admin-signout" class="btn btn-outline" type="button">
+            Sign out
+          </button>
+        </div>
+
+        <nav class="admin-nav" aria-label="Admin sections">
+          <button
+            class="admin-nav-button active"
+            type="button"
+            data-section="products-section"
+          >
+            Products
+          </button>
+          <button
+            class="admin-nav-button"
+            type="button"
+            data-section="admin-section"
+          >
+            Add admin
+          </button>
+          <button
+            class="admin-nav-button"
+            type="button"
+            data-section="overview-section"
+          >
+            Overview
+          </button>
+          <button
+            class="admin-nav-button"
+            type="button"
+            data-section="orders-section"
+          >
+            Pending orders
+          </button>
+          <button
+            class="admin-nav-button"
+            type="button"
+            data-section="delivered-orders-section"
+          >
+            Delivered orders
+          </button>
+          <button
+            class="admin-nav-button"
+            type="button"
+            data-section="users-section"
+          >
+            Users
+          </button>
+        </nav>
+
+        <section
+          id="products-section"
+          class="admin-section active"
+          data-section-panel
+        >
+          <div class="admin-section-heading">
+            <div>
+              <p class="eyebrow">CATALOGUE</p>
+              <h3>Products</h3>
+            </div>
+            <p>Add, update, or remove products from the live catalogue.</p>
+          </div>
+          <form id="product-form" class="admin-panel admin-form">
+            <h3>Add a product</h3>
+            <input id="product-id" name="id" type="hidden" value="" />
+            <div class="admin-form-grid">
+              <div class="field">
+                <label for="product-name">Name</label>
+                <input id="product-name" name="name" required />
+              </div>
+              <div class="field">
+                <label for="product-category">Category</label>
+                <select id="product-category" name="category" required>
+                  <option value="">Select a category</option>
+                  <option value="Fashion">Fashion</option>
+                  <option value="Groceries">Groceries</option>
+                  <option value="Electronics">Electronics</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="product-price">Price (NGN)</label>
+                <input
+                  id="product-price"
+                  name="price"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="product-stock">Stock</label>
+                <input
+                  id="product-stock"
+                  name="stock"
+                  type="number"
+                  min="0"
+                  step="1"
+                  value="0"
+                  required
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label for="product-description">Description</label>
+              <textarea
+                id="product-description"
+                name="description"
+                rows="3"
+              ></textarea>
+            </div>
+            <div class="field">
+              <label for="product-image">Product image</label>
+              <input
+                id="product-image"
+                name="image"
+                type="file"
+                accept="image/*"
+              />
+            </div>
+            <p id="product-error" class="form-error" hidden></p>
+            <p id="product-success" class="form-success" hidden></p>
+            <button class="btn btn-primary" type="submit">Add product</button>
+          </form>
+          <p id="products-error" class="form-error" hidden></p>
+          <div id="product-list" class="admin-product-list"></div>
+        </section>
+
+        <section
+          id="admin-section"
+          class="admin-section"
+          data-section-panel
+          hidden
+        >
+          <div class="admin-section-heading">
+            <div>
+              <p class="eyebrow">TEAM ACCESS</p>
+              <h3>Add admin</h3>
+            </div>
+            <p>Create a separate administrator account for store management.</p>
+          </div>
+          <form id="admin-form" class="admin-panel admin-form">
+            <h3>Add another admin</h3>
+            <div class="admin-form-grid">
+              <div class="field">
+                <label for="admin-name">Full name</label>
+                <input id="admin-name" name="name" required />
+              </div>
+              <div class="field">
+                <label for="admin-email">Email</label>
+                <input id="admin-email" name="email" type="email" required />
+              </div>
+              <div class="field password-field">
+                <label for="admin-password">Temporary password</label>
+                <div class="password-input-wrapper">
+                  <input
+                    id="admin-password"
+                    name="password"
+                    type="password"
+                    minlength="6"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="password-toggle admin-password-toggle"
+                    aria-label="Show password"
+                    aria-pressed="false"
+                  >
+                    Show
+                  </button>
+                </div>
+              </div>
+            </div>
+            <p id="admin-error" class="form-error" hidden></p>
+            <p id="admin-success" class="form-success" hidden></p>
+            <button class="btn btn-secondary" type="submit">
+              Create admin account
+            </button>
+          </form>
+        </section>
+
+        <section
+          id="overview-section"
+          class="admin-section"
+          data-section-panel
+          hidden
+        >
+          <div class="admin-section-heading">
+            <div>
+              <p class="eyebrow">AT A GLANCE</p>
+              <h3>Overview</h3>
+            </div>
+            <p>Live totals from the catalogue and order lifecycle.</p>
+          </div>
+          <div class="admin-stats-grid">
+            <button
+              class="stat-card"
+              type="button"
+              data-section-target="products-section"
+            >
+              <span>Total products</span><strong id="stat-products">0</strong>
+            </button>
+            <button
+              class="stat-card"
+              type="button"
+              data-section-target="orders-section"
+            >
+              <span>Pending orders</span
+              ><strong id="stat-pending-orders">0</strong>
+            </button>
+            <button
+              class="stat-card"
+              type="button"
+              data-section-target="delivered-orders-section"
+            >
+              <span>Total orders</span><strong id="stat-orders">0</strong
+              ><small>Delivered orders</small>
+            </button>
+            <button
+              class="stat-card"
+              type="button"
+              data-section-target="users-section"
+            >
+              <span>Total users</span><strong id="stat-users">0</strong>
+            </button>
+          </div>
+        </section>
+
+        <section
+          id="orders-section"
+          class="admin-section"
+          data-section-panel
+          hidden
+        >
+          <div class="admin-section-heading">
+            <div>
+              <p class="eyebrow">FULFILMENT</p>
+              <h3>Orders</h3>
+            </div>
+            <p>Pending orders become delivered automatically after 7 days.</p>
+          </div>
+          <div class="admin-panel">
+            <p id="orders-error" class="form-error" hidden></p>
+            <div id="pending-orders-list" class="admin-orders-list"></div>
+          </div>
+        </section>
+
+        <section
+          id="delivered-orders-section"
+          class="admin-section"
+          data-section-panel
+          hidden
+        >
+          <div class="admin-section-heading">
+            <div>
+              <p class="eyebrow">FULFILMENT HISTORY</p>
+              <h3>Delivered orders</h3>
+            </div>
+            <p>Orders that have completed the 7-day delivery lifecycle.</p>
+          </div>
+          <div class="admin-panel">
+            <p id="delivered-orders-error" class="form-error" hidden></p>
+            <div id="delivered-orders-list" class="admin-orders-list"></div>
+          </div>
+        </section>
+
+        <section
+          id="users-section"
+          class="admin-section"
+          data-section-panel
+          hidden
+        >
+          <div class="admin-section-heading">
+            <div>
+              <p class="eyebrow">CUSTOMERS</p>
+              <h3>Users</h3>
+            </div>
+            <p>All registered customer and administrator accounts.</p>
+          </div>
+          <div class="admin-panel">
+            <p id="users-error" class="form-error" hidden></p>
+            <div id="users-list" class="admin-users-list"></div>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script type="module" src="js/admin.js"></script>
+  </body>
+</html>

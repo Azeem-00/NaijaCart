@@ -1,0 +1,5 @@
+Flask
+Flask-Cors
+Werkzeug
+requests
+python-dotenv

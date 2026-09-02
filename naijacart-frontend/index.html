@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NaijaCart</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- Promo Bar -->
+    <div class="promo-bar">
+      <div class="container">
+        <p>
+          Free delivery on orders over ₦25,000 • Pay on delivery available
+          nation-wide
+        </p>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="index.html" aria-label="NaijaCart home">
+          <svg
+            class="brand-cart"
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            focusable="false"
+          >
+            <path
+              d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 1.9-1.4L21 8H6"
+            />
+            <circle cx="10" cy="20" r="1.2" />
+            <circle cx="18" cy="20" r="1.2" />
+          </svg>
+          <span>NaijaCart</span>
+        </a>
+        <form id="search-form" class="search-wrap">
+          <input
+            id="search"
+            class="search"
+            type="text"
+            placeholder="Search products..."
+            aria-label="Search products"
+          />
+          <button
+            id="search-submit"
+            class="search-action"
+            type="submit"
+            aria-label="Search products"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+              <circle cx="11" cy="11" r="6.5" />
+              <path d="m16 16 4.5 4.5" />
+            </svg>
+          </button>
+          <button
+            id="search-cancel"
+            class="search-cancel"
+            type="button"
+            aria-label="Clear search"
+            hidden
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+              <path d="m6 6 12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </form>
+        <nav class="header-actions">
+          <div class="account-actions">
+            <div class="account-menu-wrap">
+              <button
+                id="account-btn"
+                class="icon-btn"
+                type="button"
+                aria-expanded="false"
+                aria-haspopup="menu"
+              >
+                Sign in
+              </button>
+              <div id="account-menu" class="account-menu" role="menu" hidden>
+                <button
+                  type="button"
+                  class="account-menu-item"
+                  data-action="profile"
+                  role="menuitem"
+                >
+                  Edit profile
+                </button>
+                <button
+                  type="button"
+                  class="account-menu-item danger"
+                  data-action="signout"
+                  role="menuitem"
+                >
+                  Sign out
+                </button>
+              </div>
+            </div>
+            <a id="admin-link" class="admin-link" href="admin.html" hidden
+              >Admin dashboard</a
+            >
+          </div>
+          <button
+            id="cart-btn"
+            class="icon-btn cart-btn"
+            aria-label="Open cart"
+          >
+            <svg
+              class="button-icon"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              focusable="false"
+            >
+              <path
+                d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 1.9-1.4L21 8H6"
+              />
+              <circle cx="10" cy="20" r="1.2" />
+              <circle cx="18" cy="20" r="1.2" />
+            </svg>
+            <span>Cart</span> <span id="cart-count" class="cart-count">0</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-section">
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <p class="eyebrow">SHOP THE GOOD STUFF</p>
+            <h1>Everyday essentials,<br /><em>made easy.</em></h1>
+            <p class="hero-text">
+              Groceries, useful finds, and personal essentials, thoughtfully
+              selected and delivered across Nigeria.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#catalog"
+                >Explore the collection
+                <span aria-hidden="true">&#8594;</span></a
+              >
+              <span class="hero-note"
+                ><strong>24-48 hrs</strong><br />Lagos delivery</span
+              >
+            </div>
+          </div>
+          <div class="hero-art" aria-label="Featured NaijaCart collection">
+            <div class="hero-stamp" aria-label="NaijaCart shopping cart">
+              <svg
+                class="stamp-cart"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                focusable="false"
+              >
+                <path
+                  d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 1.9-1.4L21 8H6"
+                />
+                <circle cx="10" cy="20" r="1.2" />
+                <circle cx="18" cy="20" r="1.2" />
+              </svg>
+            </div>
+            <div class="hero-product product-one">
+              <span>fresh<br />finds</span>
+            </div>
+            <div class="hero-product product-two">
+              <span>made<br />nearby</span>
+            </div>
+            <div class="hero-art-label">
+              CURATED IN NIGERIA <span>EST. 2026</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="category-section">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">BROWSE THE SHELVES</p>
+              <h2>Shop by category</h2>
+            </div>
+            <p class="heading-note">
+              Small Routine. Better objects.<br />A little more joy in the
+              everyday.
+            </p>
+          </div>
+          <nav id="category-chips" class="chips"></nav>
+        </div>
+      </section>
+
+      <section id="catalog" class="catalog-section">
+        <div class="container">
+          <div class="toolbar">
+            <div>
+              <p class="eyebrow">THE COLLECTION</p>
+              <h2 class="catalog-title">Worth bringing home</h2>
+            </div>
+            <label class="sort-label" for="sort"
+              >Sort by
+              <select id="sort" class="sort-select">
+                <option value="newest">Newest</option>
+                <option value="price_asc">Price: low to high</option>
+                <option value="price_desc">Price: high to low</option>
+              </select>
+            </label>
+          </div>
+          <section id="product-grid" class="grid"></section>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <h3>NaijaCart</h3>
+          <p>Nigeria's modern marketplace for everyday good things.</p>
+        </div>
+        <p class="footer-meta">
+          Quality goods. Honest prices. Delivered with care.
+        </p>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          <p>
+            &copy; 2026 NaijaCart <span aria-hidden="true">&middot;</span> Made
+            for modern Nigerian living.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Product detail dialog -->
+    <dialog id="product-dialog" class="dialog product-dialog">
+      <div class="dialog-head">
+        <p class="eyebrow">PRODUCT DETAILS</p>
+        <button
+          type="button"
+          class="dialog-close"
+          data-close
+          aria-label="Close product details"
+        >
+          &times;
+        </button>
+      </div>
+      <div id="product-detail" class="product-detail"></div>
+      <section class="related-section" aria-labelledby="related-title">
+        <div class="related-heading">
+          <div>
+            <p class="eyebrow">YOU MAY ALSO LIKE</p>
+            <h2 id="related-title">Similar products</h2>
+          </div>
+        </div>
+        <div id="related-products" class="related-grid"></div>
+      </section>
+    </dialog>
+
+    <!-- Auth dialog -->
+    <dialog id="auth-dialog" class="dialog auth-dialog">
+      <div class="auth-brand" aria-hidden="true">
+        <svg class="auth-brand-icon" viewBox="0 0 24 24" focusable="false">
+          <path
+            d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 1.9-1.4L21 8H6"
+          />
+          <circle cx="10" cy="20" r="1.2" />
+          <circle cx="18" cy="20" r="1.2" />
+        </svg>
+        <span>NaijaCart</span>
+      </div>
+      <div class="dialog-head">
+        <h2 id="auth-title">Sign in</h2>
+        <button
+          type="button"
+          class="dialog-close"
+          data-close
+          aria-label="Close dialog"
+        >
+          &times;
+        </button>
+      </div>
+      <form
+        id="auth-form"
+        class="auth-form"
+        novalidate
+        onsubmit="return false;"
+      >
+        <div id="auth-name-fields" class="field" hidden>
+          <label for="auth-first-name">First name</label>
+          <input
+            id="auth-first-name"
+            name="first_name"
+            type="text"
+            autocomplete="given-name"
+            placeholder="e.g. Amara"
+            required
+          />
+        </div>
+        <div id="auth-last-name-field" class="field" hidden>
+          <label for="auth-last-name">Last name</label>
+          <input
+            id="auth-last-name"
+            name="last_name"
+            type="text"
+            autocomplete="family-name"
+            placeholder="e.g. Okafor"
+            required
+          />
+        </div>
+        <div id="auth-phone-field" class="field" hidden>
+          <label for="auth-phone">Phone number</label>
+          <input
+            id="auth-phone"
+            name="phone"
+            type="tel"
+            autocomplete="tel"
+            placeholder="e.g. 08012345678"
+            required
+          />
+        </div>
+        <div class="field">
+          <label for="auth-email">Email</label>
+          <input
+            id="auth-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            placeholder="e.g. amara@example.com"
+            required
+          />
+        </div>
+        <div class="field password-field">
+          <label for="auth-password">Password</label>
+          <div class="password-input-wrapper">
+            <input
+              id="auth-password"
+              name="password"
+              type="password"
+              autocomplete="new-password"
+              placeholder="At least 6 characters"
+              required
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              aria-label="Show password"
+              aria-pressed="false"
+            >
+              Show
+            </button>
+          </div>
+        </div>
+        <div id="auth-confirm-password-field" class="field" hidden>
+          <label for="auth-confirm-password">Confirm password</label>
+          <div class="password-input-wrapper">
+            <input
+              id="auth-confirm-password"
+              name="confirm_password"
+              type="password"
+              autocomplete="new-password"
+              placeholder="Re-enter your password"
+              required
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              aria-label="Show password"
+              aria-pressed="false"
+            >
+              Show
+            </button>
+          </div>
+        </div>
+        <div id="auth-address-field" class="field" hidden>
+          <label for="auth-address">Address</label>
+          <input
+            id="auth-address"
+            name="address"
+            type="text"
+            autocomplete="street-address"
+            placeholder="e.g. 12 Adeola Street, Lagos"
+            required
+          />
+        </div>
+        <p
+          id="auth-error"
+          class="form-error"
+          role="alert"
+          tabindex="-1"
+          hidden
+        ></p>
+        <button
+          type="submit"
+          class="btn btn-primary btn-block"
+          id="auth-submit"
+        >
+          Sign in
+        </button>
+        <button type="button" class="btn-link" id="auth-toggle">
+          New here? Create an account
+        </button>
+      </form>
+    </dialog>
+
+    <script type="module" src="js/app.js?v=20260902-1"></script>
+  </body>
+</html>
