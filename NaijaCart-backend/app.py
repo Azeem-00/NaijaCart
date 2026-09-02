@@ -16,7 +16,10 @@ app = Flask(__name__)
 init_db()
 app.config["UPLOAD_FOLDER"] = os.path.join(os.path.dirname(__file__), "uploads")
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024
-configured_origins = os.environ.get("NAIJACART_ALLOWED_ORIGINS")
+configured_origins = os.environ.get(
+    "NAIJACART_ALLOWED_ORIGINS",
+    "https://naijacart-ecommerce.netlify.app",
+)
 local_origins = [
     f"http://{host}:{port}"
     for host in ("localhost", "127.0.0.1")
