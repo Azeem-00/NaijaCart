@@ -18,7 +18,10 @@ FRONTEND_FOLDER = os.path.abspath(
 )
 app = Flask(__name__, static_folder=FRONTEND_FOLDER, static_url_path="")
 init_db()
-app.config["UPLOAD_FOLDER"] = os.path.join(os.path.dirname(__file__), "uploads")
+app.config["UPLOAD_FOLDER"] = os.environ.get(
+    "UPLOAD_FOLDER",
+    os.path.join(os.path.dirname(__file__), "uploads"),
+)
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024
 configured_origins = os.environ.get(
     "NAIJACART_ALLOWED_ORIGINS",

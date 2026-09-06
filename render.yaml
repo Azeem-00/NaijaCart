@@ -5,7 +5,15 @@ services:
     rootDir: NaijaCart-backend
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
+    disk:
+      name: naijacart-data
+      mountPath: /var/data
+      sizeGB: 1
     envVars:
+      - key: NAIJACART_DB_PATH
+        value: /var/data/naijacart.db
+      - key: UPLOAD_FOLDER
+        value: /var/data/uploads
       - key: NAIJACART_ALLOWED_ORIGINS
         sync: false
       - key: NAIJACART_ADMIN_EMAIL

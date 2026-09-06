@@ -58,6 +58,22 @@ python app.py
 
 The API runs at `http://127.0.0.1:5000`. `seed.py` creates `NaijaCart-backend/naijacart.db` if it does not exist, initializes the schema, clears the seeded tables, and inserts the sample catalogue and the admin account configured by those environment variables. It requires both variables and does not contain a default admin password.
 
+### Deployment storage
+
+Production SQLite data and uploaded images must be stored on persistent storage.
+The Render configuration mounts a persistent disk at `/var/data` and sets:
+
+```text
+NAIJACART_DB_PATH=/var/data/naijacart.db
+UPLOAD_FOLDER=/var/data/uploads
+```
+
+For Railway, add a Volume mounted at `/var/data`, then add the same two variables
+to the service. Without a persistent disk or Volume, accounts and other changes
+can disappear when the service restarts. When the frontend is served by the same
+Railway service, it automatically uses that service's `/api` endpoint; the
+Netlify deployment continues using the Render API.
+
 ### Frontend
 
 Open a second PowerShell terminal:

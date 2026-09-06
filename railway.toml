@@ -1,0 +1,7 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "pip install -r NaijaCart-backend/requirements.txt"
+
+[deploy]
+startCommand = "cd NaijaCart-backend && gunicorn app:app"
+restartPolicyType = "ON_FAILURE"

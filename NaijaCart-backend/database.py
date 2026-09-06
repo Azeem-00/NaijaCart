@@ -1,8 +1,9 @@
 # database.py
+import os
 import sqlite3
 from pathlib import Path
 
-DB_PATH = Path(__file__).parent / "naijacart.db"
+DB_PATH = Path(os.environ.get("NAIJACART_DB_PATH", Path(__file__).parent / "naijacart.db"))
 
 def get_db():
     conn = sqlite3.connect(DB_PATH, timeout=10)
