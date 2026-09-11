@@ -3,7 +3,7 @@ import sqlite3
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
-from database import get_db, init_db
+from database import DB_PATH, get_db, init_db
 from auth import (
     hash_password, verify_password, create_token,
     login_required, admin_required,
@@ -51,7 +51,16 @@ def home():
 
 @app.get("/health")
 def health_check():
-    return jsonify({"status": "ok", "service": "NaijaCart API"})
+    persistent_root = os.environ.get("NAIJACART_PERSISTENT_ROOT", "/var/data")
+    db_path = os.path.abspath(str(DB_PATH))
+    return jsonify({
+        "status": "ok",
+        "service": "NaijaCart API",
+        "database_path": db_path,
+        "persistent_storage_configured": db_path.startswith(
+            os.path.abspath(persistent_root) + os.sep
+        ),
+    })
 
 
 @app.after_request

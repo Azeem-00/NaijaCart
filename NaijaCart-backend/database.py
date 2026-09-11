@@ -5,6 +5,20 @@ from pathlib import Path
 
 DB_PATH = Path(os.environ.get("NAIJACART_DB_PATH", Path(__file__).parent / "naijacart.db"))
 
+
+def validate_storage():
+    if os.environ.get("NAIJACART_REQUIRE_PERSISTENT_STORAGE", "").lower() != "true":
+        return
+    persistent_root = Path(os.environ.get("NAIJACART_PERSISTENT_ROOT", "/var/data"))
+    try:
+        DB_PATH.relative_to(persistent_root)
+    except ValueError as exc:
+        raise RuntimeError(
+            f"NAIJACART_DB_PATH must be inside {persistent_root} in production; got {DB_PATH}"
+        ) from exc
+
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+
 def get_db():
     conn = sqlite3.connect(DB_PATH, timeout=10)
     conn.row_factory = sqlite3.Row  # access columns by name
@@ -13,6 +27,7 @@ def get_db():
     return conn
 
 def init_db():
+    validate_storage()
     schema = (Path(__file__).parent / "schema.sql").read_text()
     conn = get_db()
     conn.executescript(schema)  # runs the CREATE TABLE statements
