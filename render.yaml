@@ -5,7 +5,7 @@ services:
     plan: starter
     rootDir: NaijaCart-backend
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    startCommand: gunicorn --bind 0.0.0.0:$PORT app:app
     disk:
       name: naijacart-data
       mountPath: /var/data
