@@ -17,7 +17,18 @@ def validate_storage():
             f"NAIJACART_DB_PATH must be inside {persistent_root} in production; got {DB_PATH}"
         ) from exc
 
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    if not persistent_root.is_dir():
+        raise RuntimeError(
+            f"Persistent storage is not mounted at {persistent_root}. "
+            "Attach a Render Persistent Disk at this exact mount path before starting the service."
+        )
+    try:
+        DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    except PermissionError as exc:
+        raise RuntimeError(
+            f"Persistent storage at {persistent_root} is not writable. "
+            "Check the Render disk mount path and service plan."
+        ) from exc
 
 def get_db():
     conn = sqlite3.connect(DB_PATH, timeout=10)

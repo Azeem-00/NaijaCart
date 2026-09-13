@@ -68,6 +68,11 @@ NAIJACART_DB_PATH=/var/data/naijacart.db
 UPLOAD_FOLDER=/var/data/uploads
 ```
 
+The Render web service must use a disk-eligible paid plan and have a Persistent
+Disk attached at `/var/data`. If the service was created manually instead of
+from this Blueprint, add the disk in the Render service settings and redeploy;
+adding environment variables alone does not create `/var/data`.
+
 For Railway, add a Volume mounted at `/var/data`, then add the same two variables
 to the service. Without a persistent disk or Volume, accounts and other changes
 can disappear when the service restarts. When the frontend is served by the same
