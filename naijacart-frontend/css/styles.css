@@ -2169,6 +2169,7 @@ body {
 
 .account-menu-wrap {
   position: relative;
+  z-index: 30;
   padding-top: 0.45rem;
 }
 
@@ -2176,7 +2177,7 @@ body {
   position: absolute;
   right: 0;
   top: calc(100% + 0.55rem);
-  z-index: 30;
+  z-index: 40;
   min-width: 180px;
   display: flex;
   flex-direction: column;
@@ -3419,17 +3420,25 @@ dialog[open]::backdrop {
   }
 
   .header-actions {
+    position: relative;
+    z-index: 20;
     grid-column: 2;
     grid-row: 1;
     margin-left: 0;
   }
 
   .search-wrap {
+    position: relative;
+    z-index: 1;
     grid-column: 1 / -1;
     grid-row: 2;
     width: 100%;
     max-width: none;
     margin-top: 0.1rem;
+  }
+
+  .account-menu-wrap {
+    z-index: 30;
   }
 
   .account-actions {
